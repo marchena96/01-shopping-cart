@@ -14,5 +14,20 @@ function eventHandler() {
 function addToCart(e) {
     e.preventDefault();
 
-    console.log('clicking add to cart...');
+    if (e.target.classList.contains('agregar-carrito')) {
+        const selectedItem = e.target.parentElement.parentElement;
+        readItemData(selectedItem);
+    }
+}
+
+function readItemData(item) {
+    const itemInfo = {
+        img: item.querySelector('img').src,
+        title: item.querySelector('h4').textContent,
+        price: item.querySelector('.precio span'),
+        id: item.querySelector('a').getAttribute('data-id'),
+        quantity: 1
+    }
+
+    console.log(itemInfo);
 }
