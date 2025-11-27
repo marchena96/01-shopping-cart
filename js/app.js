@@ -1,12 +1,10 @@
 const courseCatalogue = document.querySelector('#lista-cursos'); //const btnAddToCart = document.querySelector('agregar-carrito');
 const bntCleanCart = document.querySelector('#vaciar-carrito');
-
 const cart = document.querySelector('#lista-carrito tbody');
 
+let cartItems = []; //...
 
-let cartItems = [];
-
-// Calling up event handler function
+// Calling up event handler function|
 eventHandler();
 
 // Event handler...
@@ -25,39 +23,40 @@ function addToCart(e) {
     }
 }
 
-
 // Read...
 function readItemData(item) {
     console.log(item);
     const itemInfo = {
         img: item.querySelector('img').src,
-        title: item.querySelector('h4').textContent,
-        price: item.querySelector('.precio span'),
+        title: item.querySelector('h4').textContent, // It picks up the text content.
+        price: item.querySelector('.precio span').textContent,
         id: item.querySelector('a').getAttribute('data-id'),
         quantity: 1
     }
     //Adding elements to the cart
     cartItems = [...cartItems, itemInfo];
-
-    console.log(cartItems);
-
-    HTMLCart();
+    HTMLCart(); // Why it calls to this function?
 }
 
 function HTMLCart() {
-    cleanCart();
+    cleanCart(); //...
     cartItems.forEach(item => {
+        const { img, title, price, quantity, id } = item;
         const row = document.createElement('tr');
         row.innerHTML = ` 
         <td>
-            ${item.title}
+            <img src="${img}" width="100"> 
         </td>
+        <td> ${title} </td>
+        <td> ${price} </td>
+        <td> ${quantity} </td>
+        <td>
+            <a href="#" class="borrar-curso" data-id"${id}"> X </a>
+        </td> 
         `;
 
-        // Add this draw in the tbody
-        cart.appendChild(row);
+        cart.appendChild(row); // Add this draw in the tbody
     });
-
 }
 
 // Clean the cart
